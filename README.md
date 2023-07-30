@@ -3,6 +3,9 @@ This site was built with React + vite, Tailwind Css and Axios to handle http req
 # Api used
 https://openlibrary.org/search.json?title=${search}`;
 
+live demo
+https://chromax-book-hub.netlify.app/
+
 
 
 # React + Vite
