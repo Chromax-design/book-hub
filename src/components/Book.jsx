@@ -19,7 +19,7 @@ const Book = ({book}) => {
         />
       </Link>
 
-      <h2 className="font-bold my-3 capitalize">{ book.title.length > 20 ? book.title.slice(0, 100)  + '...' :book.title }</h2>
+      <h2 className="font-bold my-3 capitalize">{ book.title.length > 30 ? book.title.slice(0, 30)  + '...' :book.title }</h2>
       <h3>{book.author_name}</h3>
       {/* {console.log(book.key)} */}
     </div>

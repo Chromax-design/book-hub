@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
 import axios from "axios";
 import Loader from "../assets/loader.gif";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Details = () => {
-  const { bookid } = useParams();
+  const { bookId } = useParams();
   const [details, setdetails] = useState([]);
   const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  const detailsurl = `https://openlibrary.org/works/${bookid}.json`;
+  const detailsurl = `https://openlibrary.org/works/${bookId}.json`;
   const getDetails = async () => {
     setLoading(true);
     const { data } = await axios.get(detailsurl);
@@ -34,21 +31,6 @@ const Details = () => {
 
   return (
     <>
-      <header className="bg-[url('assets/bg-hero.jpg')] min-h-[450px] bg-no-repeat bg-cover relative md:h-[70vh] md:bg-center selection:bg-black selection:text-white">
-        <div className="absolute min-w-full min-h-full bg-black opacity-70"></div>
-        <div className="container max-w-5xl mx-auto relative md:px-5 lg:px-3">
-          <div className="absolute top-0 left-0 w-full p-4">
-            {/* Nav */}.
-            <Nav />
-            {/* Hero section */}
-            <div className="max-w-lg mx-auto flex justify-center items-center mt-[80px] md:mt-[150px] py-8 flex-col text-center text-white">
-              <h1 className="text-5xl md:text-6xl capitalize font-black">
-                About The book
-              </h1>
-            </div>
-          </div>
-        </div>
-      </header>
       <main>
         {Loading && (
           <div className="flex justify-center items-center transition-all bg-white flex-col my-3 py-3">
@@ -62,27 +44,40 @@ const Details = () => {
         {/* book details */}
         {Loading == false && (
           <section className="my-5 py-3 max-w-5xl mx-auto px-5">
-            <button className="text-md text-white bg-slate-950 px-4 py-2 capitalize font-bold mb-5 hover:bg-slate-600" onClick={()=>{
+            <button
+              className="text-md text-white bg-slate-950 px-4 py-2 capitalize font-bold mb-5 hover:bg-slate-600"
+              onClick={() => {
                 navigate(-1);
-            }}>
+              }}
+            >
               Go back
             </button>
             <div className="flex justify-center gap-5 flex-col sm:flex-row">
               <div className="min-w-[200px] shadow-lg">
                 <img src={imgUrl} alt="" className="w-full" />
               </div>
-              <div className="">
+              <div className="p-1 md:overflow-y-scroll md:max-h-80">
                 <h2 className="text-2xl">
                   <span className="font-bold">Book Title</span>: {Booktitle}
                 </h2>
                 <h3 className="font-bold text-2xl">Book description</h3>
                 <p>{description}</p>
+                <div className="flex gap-3 flex-wrap mt-2">
+                  <h3 className="font-bold text-2xl">Tags:</h3>
+                  {details.subjects?.slice(0, 10)?.map((subject) => {
+                    return (
+                      <span className="bg-black text-white p-2 inline-block text-xs font-bold cursor-pointer">
+                        {" "}
+                        #{subject}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </section>
         )}
       </main>
-      <Footer />
     </>
   );
 };
