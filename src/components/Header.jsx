@@ -16,7 +16,7 @@ const Header = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (searchText.current.value.length == 0) {
-      setsearch('legacy');
+      setsearch('harry potter');
     } else {
       setsearch(searchText.current.value);
     }
